@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-app="myapp">
+    <div ng-controller="myctrl">
+        enter an item to add:<input type="text" ng-model="newItem">
+        <button ng-click="addItem()">add</button>
+        <br /><br />
+        <b>List of Items</b>
+        <table border="1">
+            <tr>
+                <th>slno</th>
+                <th>item</th>
+                <th>remove</th>
+            </tr>
+            <tr ng-repeat="item in itemlist">
+                <td>{{$index+1}}</td>
+                <td>{{item}}</td>
+                <td>
+                    <button ng-click="removeItem(item)">remove</button>
+                </td>
+            </tr>
+        </table><br>
+        total number of items=<b>{{itemlist.length}}</b>
+    </div>
+    <script>
+        var app = angular.module("myapp", []);
+        app.controller("myctrl", function ($scope) {
+            $scope.itemlist = ['Pen', 'Pencil', 'Eraser', 'Book'];
+            $scope.addItem = function () {
+                if ($scope.newItem) {
+                    if ($scope.itemlist.indexOf($scope.newItem) == -1) {
+                        $scope.itemlist.push($scope.newItem)
+                    }
+                    else {
+                        alert('This item is already there in the item collection')
+                    }
+                }
+                else {
+                    alert('Please Enter the item to add')
+                }
+            }
+            $scope.removeItem = function (item) {
+                var yes = confirm("Are you sure you want to delete " + item)
+                if (yes == true) {
+                    var index = $scope.itemlist.indexOf(item)
+                    $scope.itemlist.splice(index, 1)
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

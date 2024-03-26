@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Data Generator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-app="myapp">
+    <div ng-controller="StudentController">
+        <label for="numOfStudents">Enter the number of students to generate data:</label>
+        <input type="number" id="numOfStudents" ng-model="num">
+        <button ng-click="generateData()">Generate</button>
+
+        <table border="1" ng-show="studata.length">
+            <tr>
+                <th>Sl. No.</th>
+                <th>Name</th>
+                <th>CGPA</th>
+            </tr>
+            <tr ng-repeat="student in studata">
+                <td>{{ student.slno }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.cgpa }}</td>
+            </tr>
+        </table>
+
+        <p>Total number of students: {{ studata.length }}</p>
+    </div>
+
+    <script>
+        angular.module("myapp", [])
+            .controller("StudentController", function ($scope) {
+                $scope.studata = [];
+
+                $scope.generateData = function () {
+                    $scope.studata = [];
+                    for (var i = 1; i <= $scope.num; i++) {
+                        var student = {
+                            slno: i,
+                            name: "Student " + i,
+                            cgpa: (Math.random() * 10 + 1).toFixed(2)
+                        };
+                        $scope.studata.push(student);
+                    }
+                };
+            });
+    </script>
+</body>
+
+</html>

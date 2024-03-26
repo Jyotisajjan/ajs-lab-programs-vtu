@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <title>Employee details</title>
+</head>
+
+<body ng-app="MyFlt">
+    <h1>Employee details....</h1>
+    <div ng-controller="MyCtrl">
+        Search Employee by his name <input type="text" ng-model="searchName" /><br /><br />
+        Search Employee by his salary <input type="number" ng-model="searchSalary" /><br /><br />
+        <button ng-click="ClearFilters()">Clear Filter</button><br /><br />
+        <table border="1">
+            <tr>
+                <th>SL.NO</th>
+                <th>Employee Name</th>
+                <th>Salary</th>
+            </tr>
+            <tr ng-repeat="x in emplist|filter:{Name:searchName, Salary:searchSalary}">
+                <td>{{$index+1}}</td>
+                <td>{{x.Name}}</td>
+                <td>{{x.Salary}}</td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        var app = angular.module('MyFlt', []);
+        app.controller('MyCtrl', function ($scope) {
+            $scope.emplist = [{ 'Name': 'Tanvi', 'Salary': '400000' },
+            { 'Name': 'Meetali', 'Salary': '500000' },
+            { 'Name': 'Shreya', 'Salary': '350000' },
+            { 'Name': 'Umme', 'Salary': '500000' },
+            { 'Name': 'Shruti', 'Salary': '450000' }];
+            $scope.ClearFilters = function () {
+                $scope.searchName = ' ';
+                $scope.searchSalary = ' ';
+            }
+        });
+    </script>
+</body>
+
+</html>

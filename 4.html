@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <title>Factorial and Square</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-app="Myfact">
+    <div ng-controller="Ctrl">
+        <p>Enter a number<input type="number" ng-model="num"></p>
+        <button ng-click="Square()">Square</button>
+        <p>Square of a number is: {{sresult}}</p>
+        <button ng-click="Factorial()">Factorial</button>
+        <p>Factorial of a number is: {{fresult}}</p>
+    </div>
+    <script>
+        var app = angular.module("Myfact", []);
+        app.controller("Ctrl", function ($scope) {
+            $scope.Square = function () {
+                $scope.sresult = newsquare($scope.num);
+            };
+            $scope.Factorial = function () {
+                $scope.fresult = newfact($scope.num);
+            }
+            function newsquare(num) {
+                return (num * num);
+            }
+            function newfact(num) {
+                if (num == 0 || num == 1)
+                    return 1;
+                else
+                    return (num * newfact(num - 1));
+            }
+        });
+    </script>
+</body>
+
+</html>
